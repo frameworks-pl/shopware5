@@ -3,42 +3,14 @@ version: "3"
 services:
 
     shopware:
-        container_name: c-shopware5
-        build:
-          context: ./
-          dockerfile: ./docker/php/Dockerfile
-        volumes:
-         - ./:/var/www/html
-         - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
-         - ./docker/php/.env_dev:/var/www/html/.env:ro
-        ports:
-         - 5001:80
-        networks:
-         - web
-    mysql:
-        container_name: c-shopware5-mysql
-        image: mariadb:10.5
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: shopware5
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
-        ports:
-          - 3306:3306
-        volumes:
-          - ./mysql-data:/var/lib/mysql # Persist MariaDB data
-          - ./docker/mysql/init-scripts:/docker-entrypoint-initdb.d
-        networks:
-          - web
-    mail:
-      container_name: c-shopware5-mail
-      image: mailhog/mailhog
-      logging:
-        driver: 'none'
+      container_name: shopware5
+      image: dockware/dev:5.6.9
       ports:
-        - 8025:8025 #web interface
+         - "80:80"
       networks:
-        - web
+         - web
+      environment:
+         - XDEBUG_ENABLED=1
 
 networks:
   web:
