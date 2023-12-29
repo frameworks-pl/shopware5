@@ -9,6 +9,8 @@ services:
          - "80:80"
       networks:
          - web
+      volumes:
+        - ./custom:/var/www/html/custom
       environment:
          - XDEBUG_ENABLED=1
 
