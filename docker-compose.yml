@@ -11,6 +11,7 @@ services:
          - web
       volumes:
         - ./custom:/var/www/html/custom
+        - ./themes:/var/www/html/themes
       environment:
          - XDEBUG_ENABLED=1
 
