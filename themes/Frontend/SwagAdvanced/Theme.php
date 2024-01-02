@@ -26,5 +26,12 @@ SHOPWARE_EOD;
 
     public function createConfig(Form\Container\TabContainer $container)
     {
+        $tab = $this->createTab('first_tab', 'My first tab', []);
+        $fieldset = $this->createFieldSet('first_fieldset', 'My Fieldset', []);
+        $textField = $this->createTextField('first_fieldset', 'My first textfield', 'Some text', []);
+
+        $fieldset->addElement($textField);
+        $tab->addElement($fieldset);
+        $container->addTab($tab);
     }
 }
