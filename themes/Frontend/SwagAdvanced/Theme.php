@@ -26,12 +26,44 @@ SHOPWARE_EOD;
 
     public function createConfig(Form\Container\TabContainer $container)
     {
-        $tab = $this->createTab('first_tab', 'My first tab', []);
-        $fieldset = $this->createFieldSet('first_fieldset', 'My Fieldset', []);
-        $textField = $this->createTextField('first_fieldset', 'My first textfield', 'Some text', []);
+        $tabPanel = $this->createTabPanel('main_tab_panel');
+        $tabPanel->addTab($this->createColorTab());
 
-        $fieldset->addElement($textField);
+        #using snippet for translations
+        #snippet id (?) must start and end with underscore - becuase shopare is 'expecting' that
+        $tab = $this->createTab(
+            'main_tab',
+            '__workshop_tab_name__'
+        );
+        $tab->addElement($tabPanel);
+        $container->addElement($tab);
+    }
+
+    /**
+     * @return Form\Container\Tab
+     */
+    private function createColorTab() {
+        $tab = $this->createTab('color_tab', 'Colors');
+
+        $backgroundColor = $this->createColorPickerField(
+            'backgroundColor',
+            'Background color',
+            '#FF0000'
+        );
+
+        $fieldset = $this->createFieldSet('color_fieldset', 'Colors');
+
+        $primaryColor = $this->createColorPickerField(
+            'brand-primary',
+            'Primary color',
+            '#FFCCCC'
+        );
+
+        $fieldset->addElement($backgroundColor);
+        $fieldset->addElement($primaryColor);
         $tab->addElement($fieldset);
-        $container->addTab($tab);
+
+        return $tab;
+
     }
 }
